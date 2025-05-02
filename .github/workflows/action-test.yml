@@ -26,9 +26,9 @@ jobs:
           key: cache-${{ hashFiles('.github/workflows/test/Dockerfile') }}
 
       - name: inject cache into docker
-        uses: ./
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
         with:
-          skip-extraction: false
+          skip-extraction: ${{ steps.cache.outputs.cache-hit }}
           cache-map: |
             {
               "var-cache-apt": {
